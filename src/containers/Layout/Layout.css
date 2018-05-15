@@ -1,0 +1,16 @@
+.NavBar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #84A59D;
+}
+
+.NavElem {
+    margin: 10px;
+    text-decoration: none;
+}
+
+.NavElem:hover,
+.NavElem:active,
+.NavElem.active {
+    color: #FF8966;
+}

@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 
 import {Route, NavLink, Switch} from 'react-router-dom';
 
+import Ideas from '../Ideas/Ideas';
+import About from '../../components/About/About';
+import Home from '../../components/Home/Home';
+
+import './Layout.css';
+
 class Layout extends Component {
     URL = {
         ideas: "/ideas",
@@ -14,21 +20,23 @@ class Layout extends Component {
     render() {
         return (
             <div>
-                <nav>
-                    <NavLink to={URL.home}>Home</NavLink>
-                    <NavLink to={URL.ideas}>Ideas</NavLink>
-                    <NavLink to={URL.themes}>Themes</NavLink>
-                    <NavLink to={URL.about}>About</NavLink>
+                <nav className="NavBar">
+                    <NavLink exact className="NavElem" to={this.URL.home}>Home</NavLink>
+                    <NavLink className="NavElem" to={this.URL.ideas}>Ideas</NavLink>
+                    {/* <NavLink className="NavElem" to={this.URL.themes}>Themes</NavLink> */}
+                    <NavLink className="NavElem" to={this.URL.about}>About</NavLink>
                 </nav>
                 <main>
                     <Switch>
-                        <Route path={URL.ideas} exact component={Ideas}/>
-                        <Route path={URL.themes} exact component={Themes}/>
-                        <Route path={URL.about} exact component={About}/>
-                        <Route path={URL.home} exact component={Home}/>
+                        <Route exact path={this.URL.ideas} exact component={Ideas}/>
+                        {/* <Route exact path={this.URL.themes} exact component={Themes}/> */}
+                        <Route exact path={this.URL.about} exact component={About}/>
+                        <Route exact path={this.URL.home} exact component={Home}/>
                     </Switch>
                 </main>
             </div>
         )
     }
 }
+
+export default Layout;

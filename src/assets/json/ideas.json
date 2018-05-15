@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "id": 1,
+            "title": "AI Microwave",
+            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
+            "quality": 1,
+            "parentId": null,
+            "childrenIds": [2, 3, 4],
+            "themeIds": [],
+            "hashes": []
+        },
+        {
+            "id": 2,
+            "title": "AI Microwave",
+            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
+            "quality": 1,
+            "parentId": 1,
+            "childrenIds": [],
+            "themeIds": [],
+            "hashes": []
+        },
+        {
+            "id": 3,
+            "title": "AI Microwave",
+            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
+            "quality": 1,
+            "parentId": 1,
+            "childrenIds": [],
+            "themeIds": [],
+            "hashes": []
+        },
+        {
+            "id": 4,
+            "title": "AI Microwave",
+            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
+            "quality": 1,
+            "parentId": 1,
+            "childrenIds": [],
+            "themeIds": [],
+            "hashes": []
+        },
+    ]
+}
