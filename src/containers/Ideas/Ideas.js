@@ -24,7 +24,6 @@ class Ideas extends Component {
   componentDidMount = () => {
     axios.get('https://idea-tree.firebaseio.com/ideas.json')
         .then((response) => {
-            console.log(response);
             this.setState({ideas: response.data});
         }).catch(error => {
             console.log(error);
@@ -43,9 +42,7 @@ class Ideas extends Component {
   titleHandler = (evt, id) => {
     let newIdeas = {...this.state.ideas};
     let newIdea = {...newIdeas[id]};
-    console.log("before: ", newIdea);
     newIdea.title = evt.target.value;
-    console.log("after: ",newIdea);
     newIdeas[id] = newIdea;
     this.setState({ideas: newIdeas});
   }
@@ -73,7 +70,7 @@ class Ideas extends Component {
   postNewIdea = (idea) => {
     axios.post('https://idea-tree.firebaseio.com/ideas.json', idea)
         .then((response) => {
-            console.log(response);
+          // TODO handle response
         }).catch(error => {
             console.error('There has been a posting error, good luck!');
         });

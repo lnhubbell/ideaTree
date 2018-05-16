@@ -2,7 +2,6 @@ import React from 'react';
 import './Idea.css';
 
 const idea = (props) => {
-  console.log('Idea: ', props.idea);
   return (
       <div className="Idea">
         <input
