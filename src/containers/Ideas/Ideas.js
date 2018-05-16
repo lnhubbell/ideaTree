@@ -1,35 +1,108 @@
 import React, {Component} from 'react';
 import Idea from '../../components/Idea/Idea';
+import axios from 'axios';
 
 class Ideas extends Component {
-    state = {
-        ideas: [
-            {
-                title: "A Wonderful Medical App Idea",
-                description: "Here are a few sentences about that wonderful idea. It truly is magnificient. It's going to change the world.",
-                quality: 4,
-                themes: [{name: "medical", title: "Medical"}, {name: "app", title: "App"}],
-            }
-        ],
-        themes: [
-            {name: "medical", title: "Medical"},
-            {name: "app", title: "App"},
-            {name: "writing", title: "Writing"},
-            {name: "crafts", title: "Crafts"},            
-        ]
-    }
-    render() {
-        return (
-            <div>
-                <h1>Ideas</h1>
-                {
-                    this.state.ideas.map((idea) => {
-                        return <Idea idea={idea} themes={this.state.themes} />
-                    })
-                }
-            </div>
-        )
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      ideas: {},
+      themes: [
+        {name: "medical", title: "Medical"},
+        {name: "app", title: "App"},
+        {name: "writing", title: "Writing"},
+        {name: "crafts", title: "Crafts"},
+      ]
+    };
+    this.updateThemes();
+  }
+
+  updateThemes = () => {
+
+  }
+
+  componentDidMount = () => {
+    axios.get('https://idea-tree.firebaseio.com/ideas.json')
+        .then((response) => {
+            console.log(response);
+            this.setState({ideas: response.data});
+        }).catch(error => {
+            console.log(error);
+            console.error('There has been an error, good luck!');
+        });
+  }
+
+  descriptionHandler = (evt, id) => {
+    let newIdeas = {...this.state.ideas};
+    let newIdea = {...newIdeas[id]};
+    newIdea.description = evt.target.value;
+    newIdeas[id] = newIdea;
+    this.setState({ideas: newIdeas});
+  }
+
+  titleHandler = (evt, id) => {
+    let newIdeas = {...this.state.ideas};
+    let newIdea = {...newIdeas[id]};
+    console.log("before: ", newIdea);
+    newIdea.title = evt.target.value;
+    console.log("after: ",newIdea);
+    newIdeas[id] = newIdea;
+    this.setState({ideas: newIdeas});
+  }
+
+  qualityHandler = (evt, id) => {
+    let newIdeas = {...this.state.ideas};
+    let newIdea = {...newIdeas[id]};
+    newIdea.quality = evt.target.value;
+    newIdeas[id] = newIdea;
+    this.setState({ideas: newIdeas});
+  }
+
+  newIdea  = () => {
+    const idea = {
+      title: "",
+      description: "",
+      quality: "",
+      themes: [],
+    };
+    let newIdeas = {...this.state.ideas};
+    newIdeas["temp-fake-hash"] = idea;
+    this.setState({ideas: newIdeas});
+  }
+
+  postNewIdea = (idea) => {
+    axios.post('https://idea-tree.firebaseio.com/ideas.json', idea)
+        .then((response) => {
+            console.log(response);
+        }).catch(error => {
+            console.error('There has been a posting error, good luck!');
+        });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Ideas</h1>
+        {
+          Object.entries(this.state.ideas).map((ideaPair) => {
+            return <Idea
+              idea={ideaPair[1]}
+              themes={this.state.themes}
+              key={ideaPair[0]}
+              id={ideaPair[0]}
+              descriptionHandler={this.descriptionHandler}
+              titleHandler={this.titleHandler}
+              qualityHandler={this.qualityHandler}
+              postNewIdea={() => this.postNewIdea(ideaPair[1])}
+                   />
+          })
+        }
+        <div>
+          <button onClick={this.newIdea}>New Idea</button>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Ideas;

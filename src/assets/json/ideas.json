@@ -7,38 +7,38 @@
             "quality": 1,
             "parentId": null,
             "childrenIds": [2, 3, 4],
-            "themeIds": [],
+            "themes": [{"name": "ai", "title": "AI"}],
             "hashes": []
         },
         {
             "id": 2,
-            "title": "AI Microwave",
-            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
-            "quality": 1,
+            "title": "Opening Door",
+            "description": "An #AI #Microwave would automatically open the door for you.",
+            "quality": 5,
             "parentId": 1,
             "childrenIds": [],
-            "themeIds": [],
+            "themes": [{"name": "ai", "title": "AI"}],
             "hashes": []
         },
         {
             "id": 3,
-            "title": "AI Microwave",
-            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
-            "quality": 1,
+            "title": "Temp",
+            "description": "An #AI #Microwave would know what temp to cook your food at.",
+            "quality": 7,
             "parentId": 1,
             "childrenIds": [],
-            "themeIds": [],
+            "themes": [{"name": "ai", "title": "AI"}],
             "hashes": []
         },
         {
             "id": 4,
-            "title": "AI Microwave",
-            "description": "An #AI #Microwave would know what to #cook without you having to ask.",
-            "quality": 1,
+            "title": "Time",
+            "description": "An #AI #Microwave would know how long to cook your food.",
+            "quality": 3,
             "parentId": 1,
             "childrenIds": [],
-            "themeIds": [],
+            "themes": [{"name": "ai", "title": "AI"}],
             "hashes": []
-        },
+        }
     ]
 }

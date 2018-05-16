@@ -1,0 +1,18 @@
+.Idea {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+  background-color: lightgrey;
+  margin-left: 35%;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.ButtonWrapper {
+  display: flex;
+}
+
+.Idea button {
+  margin: 0px 40px;
+}
