@@ -5,9 +5,11 @@ import {Route, NavLink, Switch} from 'react-router-dom';
 import Ideas from '../Ideas/Ideas';
 import About from '../../components/About/About';
 import Home from '../../components/Home/Home';
+import Account from '../../components/Account/Account';
 import SignUp from '../../components/SignUp/SignUp';
 import SignIn from '../../components/SignIn/SignIn';
 import SignOutButton from '../../components/SignOut/SignOut';
+import PasswordForget from '../../components/PasswordForget/PasswordForget';
 import * as routes from '../../constants/routes';
 import AuthUserContext from '../../components/AuthUserContext';
 import './Layout.css';
@@ -25,7 +27,8 @@ class Layout extends Component {
                 (authUser) => authUser ?
                   <React.Fragment>
                     <NavLink className="NavElem" to={routes.IDEAS}>Ideas</NavLink>
-                    <NavLink className="NavElem" to={routes.LANDING}><SignOutButton /></NavLink>
+                    <div className="NavElem"><SignOutButton /></div>
+                    <NavLink className="NavElem" to={routes.ACCOUNT}>Account</NavLink>
                   </React.Fragment>
                 :
                 <React.Fragment>
@@ -42,6 +45,8 @@ class Layout extends Component {
               <Route exact path={routes.LANDING} exact component={Home}/>
               <Route exact path={routes.SIGN_UP} exact component={SignUp}/>
               <Route exact path={routes.SIGN_IN} exact component={SignIn}/>
+              <Route exact path={routes.ACCOUNT} exact component={Account}/>
+              <Route exact path={routes.PASSWORD_FORGET} exact component={PasswordForget}/>
 
             </Switch>
           </main>

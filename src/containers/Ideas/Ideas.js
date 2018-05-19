@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Idea from '../../components/Idea/Idea';
+import AuthUserContext from '../../components/AuthUserContext'
+import withAuthorization from '../../hoc/withAuthorization';
 import axios from 'axios';
 
 class Ideas extends Component {
@@ -22,7 +24,7 @@ class Ideas extends Component {
   }
 
   componentDidMount = () => {
-    axios.get('https://idea-tree.firebaseio.com/ideas.json')
+    axios.get('https://idea-tree.firebaseio.com/ideas.json?orderBy="quality"&equalTo="7"')
         .then((response) => {
             this.setState({ideas: response.data});
         }).catch(error => {
@@ -55,12 +57,14 @@ class Ideas extends Component {
     this.setState({ideas: newIdeas});
   }
 
-  newIdea  = () => {
+  newIdea  = (authUser) => {
+    console.log(authUser);
     const idea = {
       title: "",
       description: "",
-      quality: "",
+      quality: 1,
       themes: [],
+      user_id: authUser.uid,
     };
     let newIdeas = {...this.state.ideas};
     newIdeas["temp-fake-hash"] = idea;
@@ -68,6 +72,7 @@ class Ideas extends Component {
   }
 
   postNewIdea = (idea) => {
+    console.log(idea);
     axios.post('https://idea-tree.firebaseio.com/ideas.json', idea)
         .then((response) => {
           // TODO handle response
@@ -95,11 +100,15 @@ class Ideas extends Component {
           })
         }
         <div>
-          <button onClick={this.newIdea}>New Idea</button>
+          <AuthUserContext>
+            {authUser => <button onClick={() => this.newIdea(authUser)}>New Idea</button>}
+          </AuthUserContext>
         </div>
       </div>
     )
   }
 }
 
-export default Ideas;
+const authCondition = (authUser) => Boolean(authUser);
+
+export default withAuthorization(authCondition)(Ideas);
