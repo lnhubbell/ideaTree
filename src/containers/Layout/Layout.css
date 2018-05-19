@@ -13,4 +13,5 @@
 .NavElem:active,
 .NavElem.active {
     color: #FF8966;
+    cursor: pointer;
 }
