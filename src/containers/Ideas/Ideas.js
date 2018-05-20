@@ -74,15 +74,6 @@ class Ideas extends Component {
     this.setState({ideas: newIdeas});
   }
 
-  postNewIdea = (idea) => {
-    console.log(idea);
-    axios.post('https://idea-tree.firebaseio.com/ideas.json', idea)
-    .then((response) => {
-      // TODO handle response
-    }).catch(error => {
-      console.error('There has been a posting error, good luck!');
-    });
-  }
 
   render() {
     return (

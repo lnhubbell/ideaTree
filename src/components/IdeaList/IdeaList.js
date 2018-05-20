@@ -2,6 +2,8 @@ import React from 'react';
 import './IdeaList.css';
 import IdeaCard from '../IdeaCard/IdeaCard';
 import AuthUserContext from '../AuthUserContext';
+import { NavLink } from 'react-router-dom';
+import * as routes from '../../constants/routes';
 
 const IdeaList = (props) => {
   return (
@@ -19,9 +21,10 @@ const IdeaList = (props) => {
         }
       </div>
       <div>
-        <AuthUserContext>
+        <NavLink to={routes.IDEAS+'/new'}>New Idea</NavLink>
+        {/* <AuthUserContext>
           {authUser => <button onClick={() => props.newIdea(authUser)}>New Idea</button>}
-        </AuthUserContext>
+        </AuthUserContext> */}
       </div>
     </div>
 )

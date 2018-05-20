@@ -41,6 +41,8 @@ class Layout extends Component {
           </nav>
           <main>
             <Switch>
+              <Route path={routes.IDEAS + '/new/:parentId'} exact component={Idea}/>
+              <Route path={routes.IDEAS + '/new'} exact component={Idea}/>
               <Route path={routes.IDEAS + '/:id'} component={Idea}/>
               <Route path={routes.IDEAS} component={Ideas}/>
               <Route path={routes.ABOUT} exact component={About}/>

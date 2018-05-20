@@ -1,40 +1,33 @@
-{
-    "ideas": {
+ {
       "1-Microwave-pretend-hash": {
             "title": "AI Microwave",
             "description": "An #AI #Microwave would know what to #cook without you having to ask.",
             "quality": 1,
-            "parent": null,
-            "children": {
-              "2-Door-pretend-hash": true,
-              "3-Temp-pretend-hash": true,
-              "4-Time-pretend-hash": true
-            },
-            "themes": {}
+            "parent_id": null,
+            "user_id": "jahgVuwYAfRkbqY86KeqyAcBjr93"
         },
       "2-Door-pretend-hash": {
             "title": "Opening Door",
             "description": "An #AI #Microwave would automatically open the door for you.",
             "quality": 5,
-            "parent": "1-Microwave-pretend-hash",
+            "parent_id": "1-Microwave-pretend-hash",
             "children": {},
-            "themes": {}
+            "user_id": "jahgVuwYAfRkbqY86KeqyAcBjr93"
         },
       "3-Temp-pretend-hash": {
             "title": "Temp",
             "description": "An #AI #Microwave would know what temp to cook your food at.",
             "quality": 7,
-            "parent": "1-Microwave-pretend-hash",
+            "parent_id": "1-Microwave-pretend-hash",
             "children": {},
-            "themes": {}
+            "user_id": "jahgVuwYAfRkbqY86KeqyAcBjr93"
         },
       "4-Time-pretend-hash": {
             "title": "Time",
             "description": "An #AI #Microwave would know how long to cook your food.",
             "quality": 3,
-            "parent": "1-Microwave-pretend-hash",
+            "parent_id": "1-Microwave-pretend-hash",
             "children": {},
-            "themes": {}
+            "user_id": "jahgVuwYAfRkbqY86KeqyAcBjr93"
         }
     }
-}
