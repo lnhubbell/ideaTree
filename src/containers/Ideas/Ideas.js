@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import Idea from '../../components/Idea/Idea';
-import AuthUserContext from '../../components/AuthUserContext'
+
+import IdeaList from '../../components/IdeaList/IdeaList';
+import {Route, NavLink, Switch} from 'react-router-dom';
+import * as routes from '../../constants/routes';
 import withAuthorization from '../../hoc/withAuthorization';
 import axios from 'axios';
 
@@ -10,10 +12,10 @@ class Ideas extends Component {
     this.state = {
       ideas: {},
       themes: [
-        {name: "medical", title: "Medical"},
-        {name: "app", title: "App"},
-        {name: "writing", title: "Writing"},
-        {name: "crafts", title: "Crafts"},
+      {name: "medical", title: "Medical"},
+      {name: "app", title: "App"},
+      {name: "writing", title: "Writing"},
+      {name: "crafts", title: "Crafts"},
       ]
     };
     this.updateThemes();
@@ -26,12 +28,12 @@ class Ideas extends Component {
   componentDidMount = () => {
     const uid = this.props.authUser.uid;
     axios.get(`https://idea-tree.firebaseio.com/ideas.json?orderBy="user_id"&equalTo="${uid}"`)
-        .then((response) => {
-            this.setState({ideas: response.data});
-        }).catch(error => {
-            console.log(error);
-            console.error('There has been an error, good luck!');
-        });
+    .then((response) => {
+      this.setState({ideas: response.data});
+    }).catch(error => {
+      console.log(error);
+      console.error('There has been an error, good luck!');
+    });
   }
 
   descriptionHandler = (evt, id) => {
@@ -75,38 +77,28 @@ class Ideas extends Component {
   postNewIdea = (idea) => {
     console.log(idea);
     axios.post('https://idea-tree.firebaseio.com/ideas.json', idea)
-        .then((response) => {
-          // TODO handle response
-        }).catch(error => {
-            console.error('There has been a posting error, good luck!');
-        });
+    .then((response) => {
+      // TODO handle response
+    }).catch(error => {
+      console.error('There has been a posting error, good luck!');
+    });
   }
 
   render() {
     return (
       <div>
-        <h1>Ideas</h1>
-        {
-          Object.entries(this.state.ideas).map((ideaPair) => {
-            return <Idea
-              idea={ideaPair[1]}
-              themes={this.state.themes}
-              key={ideaPair[0]}
-              id={ideaPair[0]}
-              descriptionHandler={this.descriptionHandler}
-              titleHandler={this.titleHandler}
-              qualityHandler={this.qualityHandler}
-              postNewIdea={() => this.postNewIdea(ideaPair[1])}
-                   />
-          })
-        }
-        <div>
-          <AuthUserContext>
-            {authUser => <button onClick={() => this.newIdea(authUser)}>New Idea</button>}
-          </AuthUserContext>
-        </div>
+
+
+        <IdeaList
+
+            ideas={this.state.ideas}
+            newIdea={this.newIdea}
+          />
+
+
+
       </div>
-    )
+        )
   }
 }
 

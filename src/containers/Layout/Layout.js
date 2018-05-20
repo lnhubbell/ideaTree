@@ -4,6 +4,7 @@ import {Route, NavLink, Switch} from 'react-router-dom';
 
 import Ideas from '../Ideas/Ideas';
 import About from '../../components/About/About';
+import Idea from '../../containers/Idea/Idea';
 import Home from '../../components/Home/Home';
 import Account from '../../components/Account/Account';
 import SignUp from '../../components/SignUp/SignUp';
@@ -40,13 +41,14 @@ class Layout extends Component {
           </nav>
           <main>
             <Switch>
-              <Route exact path={routes.IDEAS} exact component={Ideas}/>
-              <Route exact path={routes.ABOUT} exact component={About}/>
-              <Route exact path={routes.LANDING} exact component={Home}/>
-              <Route exact path={routes.SIGN_UP} exact component={SignUp}/>
-              <Route exact path={routes.SIGN_IN} exact component={SignIn}/>
-              <Route exact path={routes.ACCOUNT} exact component={Account}/>
-              <Route exact path={routes.PASSWORD_FORGET} exact component={PasswordForget}/>
+              <Route path={routes.IDEAS + '/:id'} component={Idea}/>
+              <Route path={routes.IDEAS} component={Ideas}/>
+              <Route path={routes.ABOUT} exact component={About}/>
+              <Route path={routes.LANDING} exact component={Home}/>
+              <Route path={routes.SIGN_UP} exact component={SignUp}/>
+              <Route path={routes.SIGN_IN} exact component={SignIn}/>
+              <Route path={routes.ACCOUNT} exact component={Account}/>
+              <Route path={routes.PASSWORD_FORGET} exact component={PasswordForget}/>
 
             </Switch>
           </main>
