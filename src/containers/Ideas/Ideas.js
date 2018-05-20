@@ -24,7 +24,8 @@ class Ideas extends Component {
   }
 
   componentDidMount = () => {
-    axios.get('https://idea-tree.firebaseio.com/ideas.json?orderBy="quality"&equalTo="7"')
+    const uid = this.props.authUser.uid;
+    axios.get(`https://idea-tree.firebaseio.com/ideas.json?orderBy="user_id"&equalTo="${uid}"`)
         .then((response) => {
             this.setState({ideas: response.data});
         }).catch(error => {
