@@ -25,24 +25,20 @@ class Idea extends Component {
       ...NEW_IDEA,
       user_id: this.props.authUser.uid,
     },
-
-    unsaved: false
+    unsaved: false,
+    id: null,
+    childrenIdeas: []
   }
-  byPropKey = (propertyName, value) => () => ({
-    idea: {
-      ...this.state.idea,
-      [propertyName]: value,
-    }
-  });
-  componentDidMount = () => {
-    console.log('remounting!!!');
-    const uid = this.props.authUser.uid;
-    const id = this.props.match.params.id;
-    if (!id) {
-      return;
-    }
-    this.setState({id: id});
+  ideaPropChange = (propertyName, value) => () => (
+    this.setState({
+      idea: {
+        ...this.state.idea,
+        [propertyName]: value,
+      }
+    })
+  );
 
+  loadExistingIdea = (id) => {
     axios.get(`https://idea-tree.firebaseio.com/ideas/${id}.json`)
     .then((response) => {
       this.setState({idea: response.data});
@@ -52,24 +48,30 @@ class Idea extends Component {
     });
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    console.log('about to updtae');
-    console.log(this.state);
-    console.log(nextState);
+  loadNewChild = () => {
+    this.setState({
+      idea: {
+        ...this.state.idea,
+        parent_id: this.props.match.params.parentId
+      }
+    })
+  }
 
-    if (nextProps.match.params.parentId && (nextProps.match.params.parentId != this.state.idea.parent_id)) {
-      this.setState({
-        idea: {
-          ...NEW_IDEA,
-          user_id: this.props.authUser.uid,
-          parent_id: nextProps.match.params.parentId
-        },
 
-        id: null
-      })
+  componentDidMount = () => {
+    console.log('remounting!!!');
+    console.log(this.props);
+
+    if (this.props.type === "new-child") {
+      this.loadNewChild();
+    } else if (this.props.type === "new-parent") {
+      return;
+    } else if (this.props.type === "old") {
+      const id = this.props.match.params.id;
+      this.setState({id: id});
+      this.loadExistingIdea(id);
+      this.fetchChildrenIdeasByUser(id, this.props.authUser.uid);
     }
-
-    return true;
   }
 
   saveIdea = () => {
@@ -89,11 +91,33 @@ class Idea extends Component {
       console.log('created');
       console.log(response);
       this.setState({id:response.data.name})
+      this.props.history.push(routes.IDEAS + '/' + response.data.name);
     }).catch(error => {
       console.error('There has been a posting error, good luck!');
       console.error(error);
     });
   }
+
+
+  fetchChildrenIdeasByUser = (id, uid) => {
+    axios.get(`https://idea-tree.firebaseio.com/ideas.json?orderBy="user_id"&equalTo="${uid}"`)
+    .then((response) => {
+      let childrenIdeas = [];
+      for (let pair of Object.entries(response.data)) {
+        const childId = pair[0];
+        const childIdea = pair[1];
+        childIdea['id'] = childId;
+        if (childIdea.parent_id === id) {
+          childrenIdeas.push(childIdea);
+        }
+      }
+      this.setState({ childrenIdeas });
+    }).catch(error => {
+      console.log(error);
+      console.error('There has been an error, good luck!');
+    });
+  }
+
 
   render() {
     return (
@@ -104,14 +128,14 @@ class Idea extends Component {
             Title:
             <input
               value={this.state.idea.title}
-              onChange={(evt) => (this.setState(this.byPropKey('title', evt.target.value)))}
+              onChange={(evt) => this.ideaPropChange('title', evt.target.value)()}
             />
           </span>
           <textarea
             value={this.state.idea.description}
             rows="4"
             cols="50"
-            onChange={(evt) => (this.setState(this.byPropKey('description', evt.target.value)))}
+            onChange={(evt) => this.ideaPropChange('description', evt.target.value)()}
           ></textarea>
           <span>
             Quality:
@@ -120,7 +144,7 @@ class Idea extends Component {
               type="number"
               min="1"
               max="10"
-              onChange={(evt) => (this.setState(this.byPropKey('quality', evt.target.value)))}
+              onChange={(evt) => this.ideaPropChange('quality', evt.target.value)()}
             />
           </span>
           <div className="ButtonWrapper">
@@ -139,6 +163,13 @@ class Idea extends Component {
             }
           </div>
         </form>
+        <div>
+          {
+            this.state.childrenIdeas.map(idea => (
+              <NavLink to={routes.IDEAS + '/' + idea.id} key={idea.id}><div>{idea.title}</div></NavLink>
+            ))
+          }
+        </div>
       </div>
     )
   }

@@ -41,9 +41,13 @@ class Layout extends Component {
           </nav>
           <main>
             <Switch>
-              <Route path={routes.IDEAS + '/new/:parentId'} exact component={Idea}/>
-              <Route path={routes.IDEAS + '/new'} exact component={Idea}/>
-              <Route path={routes.IDEAS + '/:id'} component={Idea}/>
+              {/* these keys are necessary to that react knows to remount the DOM
+                when switching between different ideas. there may be a more
+                efficient way to handle this problem that removes the need to
+              remount */}
+              <Route path={routes.IDEAS + '/new/:parentId'} exact render={(info) => <Idea key={'child-'+info.match.params.parentId} type="new-child"/>}/>
+              <Route path={routes.IDEAS + '/new'} exact render={() => <Idea key="new-parent" type="new-parent"/>}/>
+              <Route path={routes.IDEAS + '/:id'} render={(info) => <Idea key={info.match.params.id} type="old"/>}/>
               <Route path={routes.IDEAS} component={Ideas}/>
               <Route path={routes.ABOUT} exact component={About}/>
               <Route path={routes.LANDING} exact component={Home}/>
