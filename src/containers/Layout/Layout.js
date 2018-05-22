@@ -6,11 +6,10 @@ import Ideas from '../Ideas/Ideas';
 import About from '../../components/About/About';
 import Idea from '../../containers/Idea/Idea';
 import Home from '../../components/Home/Home';
-import Account from '../../components/Account/Account';
-import SignUp from '../../components/SignUp/SignUp';
-import SignIn from '../../components/SignIn/SignIn';
-import SignOutButton from '../../components/SignOut/SignOut';
-import PasswordForget from '../../components/PasswordForget/PasswordForget';
+
+
+import {account, SignUp, SignIn, SignOutButton, passwordForget} from '../../components/User';
+
 import * as routes from '../../constants/routes';
 import AuthUserContext from '../../components/AuthUserContext';
 import './Layout.css';
@@ -53,8 +52,8 @@ class Layout extends Component {
               <Route path={routes.LANDING} exact component={Home}/>
               <Route path={routes.SIGN_UP} exact component={SignUp}/>
               <Route path={routes.SIGN_IN} exact component={SignIn}/>
-              <Route path={routes.ACCOUNT} exact component={Account}/>
-              <Route path={routes.PASSWORD_FORGET} exact component={PasswordForget}/>
+              <Route path={routes.ACCOUNT} exact component={account.Account}/>
+              <Route path={routes.PASSWORD_FORGET} exact component={passwordForget.PasswordForget}/>
 
             </Switch>
           </main>

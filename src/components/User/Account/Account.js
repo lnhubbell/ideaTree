@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AuthUserContext from '../AuthUserContext';
+import AuthUserContext from '../../AuthUserContext';
 import PasswordChangeForm from '../PasswordChange/PasswordChange';
-import withAuthorization from '../../hoc/withAuthorization';
+import withAuthorization from '../../../hoc/withAuthorization';
 
 
 const AccountPage = () =>
